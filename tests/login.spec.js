@@ -1,20 +1,23 @@
-// const {test , except, expect}=require("@playwright/test")
-// const { title } = require("node:process")
-
-// test('has title' , async ({page})=>{
-//     await page.goto("https://flipkart.com")
-//     await expect(page).toHaveTitle("Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books &amp; More. Best Offers!")
-//     await page.waitForTimeout(3000)
-//     console.log(title);
-// })
 
 const { test, expect } = require("@playwright/test");
+const { beforeEach } = require("node:test");
 
-test('has title', async ({ page }) => {
+test.beforeEach( async ({ page }) => {
     await page.goto("https://www.flipkart.com");
 
     const pageTitle = await page.title();
-await expect(pageTitle).toContain("Online Shopping Site");
+    await expect(pageTitle).toContain("Online Shopping Site");
 
     await page.waitForTimeout(3000);
 });
+
+test('create account', async ({page})=>{
+
+    await page.locator("//a[@class='FWBvOe']").click();
+
+    const input = await await page.getByLabel("Enter Email/Mobile number");
+    await input.click();
+    await input.fill("neha@yopmail.com");
+
+    
+})
